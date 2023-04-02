@@ -1,0 +1,347 @@
+import React, { FunctionComponent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import copy from 'copy-to-clipboard'
+import {
+  Hidden,
+  Link,
+  TableCell,
+  TableRow,
+  Typography,
+  createStyles,
+  makeStyles,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core'
+import personIcon from '@assets/components/directory/directory-results/person-icon.svg'
+import i18next from 'i18next'
+import { UrlTypePublic } from '../../../../reducers/types'
+import useAppMargins from '../../../../../app/components/AppMargins/appMargins'
+import { SetSuccessMessageAction } from '../../../../../app/components/pages/RootPage/actions/types'
+import rootActions from '../../../../../app/components/pages/RootPage/actions'
+import DirectoryFileIcon from '../../../../widgets/DirectoryFileIcon'
+import DirectoryUrlIcon from '../../../../widgets/DirectoryUrlIcon'
+import { GoGovReduxState } from '../../../../../app/reducers/types'
+import { GAEvent } from '../../../../../app/util/ga'
+
+type DirectoryTableRowProps = {
+  url: UrlTypePublic
+  setUrlInfo: (url: UrlTypePublic) => void
+  setOpen: (urlInfo: boolean) => void
+  index: number
+}
+
+type DirectoryTableRowStyleProps = {
+  appMargins: number
+}
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    shortLinkCell: {
+      display: 'inline-flex',
+      width: '100%',
+      paddingBottom: theme.spacing(0.5),
+      borderBottom: 'none',
+      margin: 0,
+      marginLeft: (props: DirectoryTableRowStyleProps) => props.appMargins,
+      paddingTop: theme.spacing(4),
+      flexDirection: 'column',
+      [theme.breakpoints.up('md')]: {
+        width: '40%',
+        paddingTop: theme.spacing(7.5),
+        marginLeft: () => 0,
+      },
+    },
+    longLinkText: {
+      color: '#BBBBBB',
+    },
+    tableRow: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      border: 'none',
+      borderBottom: '1px solid #d8d8d860',
+      height: 'fit-content',
+      '&:hover': {
+        backgroundColor: theme.palette.background.default,
+        cursor: 'pointer',
+      },
+    },
+    shortLinkText: {
+      display: 'box',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      maxWidth: '400px',
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '200px',
+      },
+    },
+    emailText: {
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      maxWidth: '400px',
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '200px',
+      },
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+    requestOwnershipText: {
+      color: 'inherit',
+    },
+    domainTextInactive: {
+      color: '#BBBBBB',
+      [theme.breakpoints.up('md')]: {
+        maxWidth: '400px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: 'calc(100% - 32px)',
+      },
+    },
+    domainTextActive: {
+      [theme.breakpoints.up('md')]: {
+        maxWidth: '400px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: 'calc(100% - 32px)',
+      },
+    },
+    contactEmailCell: {
+      display: 'inline-flex',
+      margin: 0,
+      width: '100%',
+      border: 'none',
+      paddingLeft: (props: DirectoryTableRowStyleProps) => props.appMargins,
+      paddingBottom: theme.spacing(4),
+      [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(7.5),
+        paddingBottom: theme.spacing(0.5),
+        paddingLeft: () => 0,
+        width: '25%',
+        flexDirection: 'column',
+      },
+    },
+    requestOwnershipCell: {
+      display: 'inline-flex',
+      margin: 0,
+      width: '100%',
+      border: 'none',
+      paddingLeft: (props: DirectoryTableRowStyleProps) => props.appMargins,
+      paddingBottom: theme.spacing(4),
+      [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(7.5),
+        paddingBottom: theme.spacing(0.5),
+        paddingLeft: () => 0,
+        width: 'fit-content',
+        flexDirection: 'column',
+      },
+    },
+    linkIconCell: {
+      display: 'inline-flex',
+      verticalAlign: 'middle',
+      [theme.breakpoints.up('md')]: {
+        paddingRight: theme.spacing(1.5),
+        marginLeft: (props: DirectoryTableRowStyleProps) => props.appMargins,
+      },
+    },
+    personIconCell: {
+      display: 'inline-flex',
+      verticalAlign: 'middle',
+      [theme.breakpoints.up('md')]: {
+        paddingRight: theme.spacing(1.5),
+        marginLeft: theme.spacing(4),
+      },
+    },
+    personIcon: {
+      marginRight: 5,
+    },
+    stateActive: {
+      color: '#6d9067',
+      textTransform: 'capitalize',
+    },
+    stateInactive: {
+      color: '#c85151',
+      textTransform: 'capitalize',
+    },
+    stateCell: {
+      [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(7.5),
+        minWidth: '75px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        display: 'inline-flex',
+        width: '30%',
+        minWidth: '110px',
+        paddingLeft: (props: DirectoryTableRowStyleProps) => props.appMargins,
+      },
+    },
+  }),
+)
+
+/**
+ * @component Single search result row.
+ */
+const DirectoryTableRow: FunctionComponent<DirectoryTableRowProps> = ({
+  url,
+  setUrlInfo,
+  setOpen,
+  index,
+}: DirectoryTableRowProps) => {
+  const appMargins = useAppMargins()
+  const classes = useStyles({ appMargins })
+  const theme = useTheme()
+  const isMobileView = useMediaQuery(theme.breakpoints.down('sm'))
+  const dispatch = useDispatch()
+  const query = useSelector(
+    (state: GoGovReduxState) => state.directory.queryForResult,
+  )
+
+  const onClickEvent = (
+    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>,
+  ) => {
+    GAEvent(
+      'directory result',
+      `${query}`,
+      'open tab',
+      parseInt(`${index}`, 10),
+    )
+    if (!isMobileView && url.state === 'ACTIVE') {
+      e.stopPropagation()
+      const redirect = `${window.location.origin}/${url.shortUrl}`
+      window.open(redirect, '_blank', 'noopener noreferrer')
+    } else if (isMobileView) {
+      setUrlInfo(url)
+      setOpen(true)
+    }
+  }
+
+  const onClickEmail = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    GAEvent(
+      'directory result',
+      `${query}`,
+      'copy email',
+      parseInt(`${index}`, 10),
+    )
+    if (!isMobileView) {
+      e.stopPropagation()
+      copy(url.email)
+      dispatch<SetSuccessMessageAction>(
+        rootActions.setSuccessMessage('Email has been copied'),
+      )
+    }
+  }
+
+  const onClickRequestOwnership = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+  ) => {
+    GAEvent(
+      'directory result',
+      `${query}`,
+      'request ownership',
+      parseInt(`${index}`, 10),
+    )
+    if (!isMobileView) {
+      e.stopPropagation()
+    }
+  }
+
+  return (
+    <TableRow
+      className={classes.tableRow}
+      onClick={(e) => onClickEvent(e)}
+      key={url.shortUrl}
+    >
+      <TableCell className={classes.shortLinkCell} key="shortUrlCell">
+        <Typography variant="body2" className={classes.shortLinkText}>
+          <div className={classes.linkIconCell}>
+            {url?.isFile ? (
+              <DirectoryFileIcon
+                color={
+                  url?.state === 'ACTIVE'
+                    ? theme.palette.primary.dark
+                    : '#BBBBBB'
+                }
+              />
+            ) : (
+              <DirectoryUrlIcon
+                color={
+                  url?.state === 'ACTIVE'
+                    ? theme.palette.primary.dark
+                    : '#BBBBBB'
+                }
+              />
+            )}
+          </div>
+          {url.state === 'ACTIVE' ? (
+            <div>
+              <span className={classes.domainTextActive}>/{url.shortUrl}</span>
+              <br />
+            </div>
+          ) : (
+            <div>
+              <span className={classes.domainTextInactive}>
+                /{url.shortUrl}
+              </span>
+              <br />
+            </div>
+          )}
+        </Typography>
+      </TableCell>
+
+      <Hidden smDown>
+        <TableCell className={classes.stateCell}>
+          <Typography
+            variant="caption"
+            className={
+              url.state === 'ACTIVE'
+                ? classes.stateActive
+                : classes.stateInactive
+            }
+          >
+            <b style={{ fontWeight: 900 }}>{'• '}</b>
+            {url.state.toLowerCase()}
+          </Typography>
+        </TableCell>
+      </Hidden>
+
+      <TableCell className={classes.contactEmailCell} key="emailCell">
+        <Typography
+          variant="body2"
+          className={classes.emailText}
+          onClick={(e) => onClickEmail(e)}
+        >
+          <div className={classes.personIconCell}>
+            <img
+              className={classes.personIcon}
+              src={personIcon}
+              alt="Copy email"
+            />
+          </div>
+          {String(url.email)}
+        </Typography>
+      </TableCell>
+
+      <Hidden smDown>
+        <TableCell
+          className={classes.requestOwnershipCell}
+          key="requestOwnershipCell"
+        >
+          <Link
+            variant="body2"
+            className={classes.requestOwnershipText}
+            onClick={(e) => onClickRequestOwnership(e)}
+            href={i18next.t('general.links.contact')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Request ownership
+          </Link>
+        </TableCell>
+      </Hidden>
+    </TableRow>
+  )
+}
+
+export default DirectoryTableRow

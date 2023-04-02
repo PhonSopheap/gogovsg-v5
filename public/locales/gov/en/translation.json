@@ -1,0 +1,77 @@
+{
+  "general": {
+    "emailDomain": "gov.sg",
+    "shortUrlPrefix": "go.gov.sg/",
+    "appTitle": "Go.gov.sg",
+    "officerType": "public officers",
+    "appCatchphrase": {
+      "styled": "Trusted short links from <strong><i>public officers</i></strong>",
+      "noStyle": "Trusted short links from public officers"
+    },
+    "appDescription": {
+      "subtitle": "<strong>$t(general.appTitle)</strong> short links can only be created by public officers, so you can be sure it’s from a trustworthy source."
+    },
+    "linkAdmins": "the Singapore government",
+    "appSignInPrompt": "Are you a public officer?",
+    "copyright": "Open Government Products",
+    "copyrightTag": "Government Technology Agency of Singapore",
+    "links": {
+      "contribute": "https://go.gov.sg/go-opensource",
+      "directory": "/directory",
+      "apiintegration": "/apiintegration",
+      "dashboard": "/user",
+      "feedback": "https://go.gov.sg/gogovsg-support",
+      "faq": "https://guide.go.gov.sg",
+      "privacy": "https://guide.go.gov.sg/privacy",
+      "terms": "https://guide.go.gov.sg/termsofuse",
+      "contact": "https://go.gov.sg/gogovsg-user-support",
+      "builtBy": "https://open.gov.sg",
+      "linkedin": "https://sg.linkedin.com/company/open-government-products",
+      "facebook": "https://www.facebook.com/opengovsg",
+      "apiDoc": "https://guide.go.gov.sg/developer-guide/api-documentation"
+    },
+    "builtBy": "Built by Open Government Products"
+  },
+  "homePage": {
+    "targetUsersPhrase": "(with an email from $t(general.emailDomain))",
+    "features": {
+      "antiPhishing": {
+        "description": "Shorten your links with a trustworthy $t(general.appTitle) domain, so your users know they are from a public officer."
+      },
+      "customised": {
+        "description": "Long URLs are hard to remember and take up space. Create and share short links instead."
+      },
+      "analytics": {
+        "description": "Want to know how popular your links are? Track each link's click rate through our web interface."
+      },
+      "fileSharing": {
+        "description": "Upload your file to share it with anyone, using a customised and trustworthy $t(general.appTitle) short link."
+      }
+    },
+    "trustedBy": {
+      "1": "MCI",
+      "2": "MINDEF",
+      "3": "SPF",
+      "4": "WSG",
+      "5": "NParks"
+    }
+  },
+  "login": {
+    "whitelistPhrase": "Only available for use by $t(general.officerType) with an email from <strong>$t(general.emailDomain)</strong>.",
+    "referrals": {
+      "1": {
+        "officerPhrase": "Staff from selected schools",
+        "emailDomain": "edu.sg",
+        "link": "for.edu.sg"
+      },
+      "2": {
+        "officerPhrase": "selected healthcare professionals",
+        "emailDomain": "",
+        "link": "for.sg"
+      }
+    },
+    "placeholders": {
+      "email": "jane@data.gov.sg"
+    }
+  }
+}

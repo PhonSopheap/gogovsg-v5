@@ -1,0 +1,29 @@
+.localstack
+.vscode
+.env
+.logs
+node_modules
+dist
+*.log
+yarn.lock
+build
+coverage
+.DS_Store
+.dccache
+.idea
+.pgdata
+
+# Local .terraform directories
+**/.terraform/*
+secret.tfvars
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# .tfplan files
+*.tfplan

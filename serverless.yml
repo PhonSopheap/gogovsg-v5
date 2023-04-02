@@ -1,0 +1,63 @@
+useDotenv: true
+service: ${env:SERVERLESS_SERVICE}
+frameworkVersion: '3'
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+  deploymentBucket:
+    name: go-buckets
+  memorySize: 256
+
+plugins:
+  - serverless-plugin-include-dependencies
+
+package:
+ individually: true
+
+functions:
+  migrate-url-to-user:
+    handler: src/server/serverless/lambda-migrate-url-to-user/index.handler
+    memorySize: 128
+    description: Postgresql user-defined function for migrating a url to an existing user
+    package:
+      patterns:
+          - '!./**' 
+          - 'src/server/serverless/lambda-migrate-url-to-user/**'
+          - 'package-lock.json'
+          - 'package.json'
+  migrate-user-links:
+    handler: src/server/serverless/lambda-migrate-user-links/index.handler
+    memorySize: 128
+    description: Postgresql user-defined function for migrating a user's links to another existing user
+    package: 
+      patterns:
+          - '!./**' 
+          - 'src/server/serverless/lambda-migrate-user-links/**'
+          - 'package-lock.json'
+          - 'package.json'
+  capture-ses-events:
+    handler: src/server/serverless/capture-ses-events/index.handler
+    memorySize: 128
+    description: SNS subscriber for SES events
+    package:
+      patterns:
+          - '!./**'
+          - 'src/server/serverless/capture-ses-events/**'
+          - 'package-lock.json'
+          - 'package.json'
+  bulk-qrcode-generation:
+    handler: src/server/serverless/bulk-qrcode-generation/index.handler
+    memorySize: 2048 # 2048 MB
+    ephemeralStorageSize: 512 # 512 MB
+    timeout: 120 # 120 seconds
+    description: Bulk generates QR codes in svg and png from shortUrl-longUrl mappings
+    package:
+      patterns:
+          - '!./**'
+          - 'src/server/serverless/bulk-qrcode-generation/**'
+          - 'package-lock.json'
+          - 'package.json'
+  

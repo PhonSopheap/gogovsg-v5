@@ -1,0 +1,77 @@
+{
+  "general": {
+    "emailDomain": "edu.sg",
+    "shortUrlPrefix": "for.edu.sg/",
+    "appTitle": "for.edu.sg",
+    "officerType": "education officers",
+    "appCatchphrase": {
+      "styled": "Trusted short links from <strong><i>education institutions</i></strong>",
+      "noStyle": "Trusted short links from education institutions"
+    },
+    "appDescription": {
+      "subtitle": "<strong>$t(general.appTitle)</strong> short links can only be created by education officers, so you can be sure it’s from a trustworthy source."
+    },
+    "linkAdmins": "education institutions",
+    "appSignInPrompt": "Are you an education officer?",
+    "copyright": "Open Government Products",
+    "copyrightTag": "Government Technology Agency of Singapore",
+    "links": {
+      "contribute": "https://go.gov.sg/go-opensource",
+      "directory": "/directory",
+      "apiintegration": "/apiintegration",
+      "dashboard": "/user",
+      "feedback": "https://for.edu.sg/foredusg-support",
+      "faq": "https://guide.for.edu.sg",
+      "privacy": "https://guide.for.edu.sg/privacy",
+      "terms": "https://guide.for.edu.sg/termsofuse",
+      "contact": "https://for.edu.sg/foredusg-user-support",
+      "builtBy": "https://open.gov.sg",
+      "linkedin": "https://sg.linkedin.com/company/open-government-products",
+      "facebook": "https://www.facebook.com/opengovsg",
+      "apiDoc": "https://guide.for.edu.sg/developer-guide/api-documentation"
+    },
+    "builtBy": "Built by Open Government Products"
+  },
+  "homePage": {
+    "targetUsersPhrase": "(from <strong><a href='https://guide.for.edu.sg/#who-can-use-foredusg' target='_blank' rel='noreferrer' style='text-decoration:underline; color: #48426D;'>selected institutions</a></strong>)",
+    "features": {
+      "antiPhishing": {
+        "description": "Shorten your links with a trustworthy $t(general.appTitle) domain, so your users know they are from an education officer."
+      },
+      "customised": {
+        "description": "Long URLs are hard to remember and take up space. Create and share short links instead."
+      },
+      "analytics": {
+        "description": "Want to know how popular your links are? Track each link's click rate through our web interface."
+      },
+      "fileSharing": {
+        "description": "Upload your file to share it with anyone, using a customised and trustworthy $t(general.appTitle) short link."
+      }
+    },
+    "trustedBy": {
+      "1": "ITE",
+      "2": "MOE",
+      "3": "NP",
+      "4": "RP",
+      "5": "SP"
+    }
+  },
+  "login": {
+    "whitelistPhrase": "Only available for use by educational institutions listed <strong><a href='https://guide.for.edu.sg/#who-can-use-foredusg' target='_blank' rel='noreferrer' style='text-decoration:underline; color: #48426D;'>here</a></strong>.",
+    "referrals": {
+      "1": {
+        "officerPhrase": "Public officers",
+        "emailDomain": "gov.sg",
+        "link": "go.gov.sg"
+      },
+      "2": {
+        "officerPhrase": "selected healthcare professionals",
+        "emailDomain": "",
+        "link": "for.sg"
+      }
+    },
+    "placeholders": {
+      "email": "jane@science.edu.sg"
+    }
+  }
+}
