@@ -260,6 +260,6 @@ resource "aws_elastic_beanstalk_environment" "env" {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "VALID_EMAIL_GLOB_EXPRESSION"
-    value     = "*.com"
+    value     = "*@gmail.com"
   }
 }
