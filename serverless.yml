@@ -60,4 +60,3 @@ functions:
           - 'src/server/serverless/bulk-qrcode-generation/**'
           - 'package-lock.json'
           - 'package.json'
-  
