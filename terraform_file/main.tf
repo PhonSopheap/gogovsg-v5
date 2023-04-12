@@ -127,7 +127,7 @@ resource "aws_elastic_beanstalk_application" "app" {
 resource "aws_elastic_beanstalk_environment" "env" {
   name                = "go-testing-env"
   application         = aws_elastic_beanstalk_application.app.name
-  solution_stack_name = "64bit Amazon Linux 2 v3.5.5 running Docker"
+  solution_stack_name = "64bit Amazon Linux 2 v3.5.6 running Docker"
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"

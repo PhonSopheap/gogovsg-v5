@@ -42,7 +42,7 @@ app.use(presetResponse)
 // attach - Mocked session
 app.use(
   session({
-    name: 'gogovsg',
+    name: 'devopsdemo',
     secret: 'notsecret',
     resave: false,
     saveUninitialized: true,
