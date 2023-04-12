@@ -20,6 +20,7 @@ import {
 } from '../../shared/constants'
 
 const domainVariantMap = {
+  // gov: 'go.gov.sg',
   gov: 'devopsdemo.us',
   edu: 'for.edu.sg',
   health: 'for.sg',

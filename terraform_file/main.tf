@@ -189,48 +189,33 @@ resource "aws_elastic_beanstalk_environment" "env" {
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "DD_AGENT_HOST"
-    value     = ""
-  }
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "DD_AGENT_MAJOR_VERSION"
-    value     = ""
-  }
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "DD_AGENT_MINOR_VERSION"
-    value     = ""
-  }
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
     name      = "OG_URL" # Original url like https://go.gov.sg
-    value     = "https://go.gov.sg"
+    value     = "https://go.devopsdemo.us"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "REDIS_OTP_URI"
-    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379/0"
+    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "REDIS_REDIRECT_URI"
-    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379/1"
+    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "REDIS_SAFE_BROWSING_URI"
-    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379/2"
+    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "REDIS_SESSION_URI"
-    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379/3"
+    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "REDIS_STAT_URI"
-    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379/4"
+    value     = "redis://gogov-redis.jv9xdv.0001.use1.cache.amazonaws.com:6379"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
@@ -261,5 +246,16 @@ resource "aws_elastic_beanstalk_environment" "env" {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "VALID_EMAIL_GLOB_EXPRESSION"
     value     = "*@gmail.com"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "ROTATED_LINKS"
+    value     = "whatsapp,passport,dgc,mptc"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "LOGIN_MESSAGE"
+    value     = "Your OTP might take awhile to get to you."
   }
 }
