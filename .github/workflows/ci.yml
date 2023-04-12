@@ -46,7 +46,6 @@ jobs:
   build-gogov:
     name: Build and push for gogov
     runs-on: ubuntu-22.04
-    if: needs.gatekeep.outputs.proceed == 'true'
     outputs:
       branch: ${{ steps.extract_branch.outputs.branch }}
       tag: ${{steps.extract_tag.outputs.tag}}
