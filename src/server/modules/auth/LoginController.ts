@@ -69,9 +69,7 @@ export class LoginController {
 
     try {
       const user = await this.authService.verifyOtp(email, otp)
-      logger.info(`Get User is: ${user}`)
       req.session!.user = user
-      logger.info(`Session USER: ${req.session!.user}`)
       res.ok(jsonMessage('OTP hash verification ok.'))
       dogstatsd.increment(OTP_VERIFY_SUCCESS, 1, 1)
       logger.info(`OTP login success for user:\t${user.email}`)
