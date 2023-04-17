@@ -164,7 +164,7 @@ initDb()
           logErrors: true,
         }),
         resave: false, // can set to false since touch is implemented by our store
-        saveUninitialized: true, // do not save new sessions that have not been modified
+        saveUninitialized: false, // do not save new sessions that have not been modified
         cookie: {
           httpOnly: true,
           sameSite: 'strict',
